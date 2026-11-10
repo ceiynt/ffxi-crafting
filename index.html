@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#020617" />
-  <title>CatsEyeXI Crafting Log - Synthesis & Crafting Companion (v15 + Bulk Wiki Scraper)</title>
+  <title>CatsEyeXI Crafting Log - Synthesis & Crafting Companion (v16 + 3,000+ Bulk Wiki Scraper)</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts -->
@@ -52,7 +52,7 @@
           <div>
             <h1 class="text-base sm:text-lg font-serif-title font-bold text-amber-50 tracking-wide leading-none">
               CatsEye<span class="text-amber-500">XI</span> Crafting Log
-              <span class="text-[10px] font-sans font-semibold text-emerald-400 bg-emerald-950/80 border border-emerald-800 px-1.5 py-0.5 rounded ml-1">v15 + Bulk Scraper</span>
+              <span class="text-[10px] font-sans font-semibold text-emerald-400 bg-emerald-950/80 border border-emerald-800 px-1.5 py-0.5 rounded ml-1">v16 • 3,000+ Scraper</span>
             </h1>
             <span id="header-summary-text" class="text-[11px] text-slate-400 font-medium block mt-0.5">Loading Guilds & Recipes...</span>
           </div>
@@ -101,19 +101,19 @@
       <!-- Third Row: 5 Main Navigation Tabs -->
       <div class="grid grid-cols-2 sm:grid-cols-5 gap-1.5 pt-1 border-t border-slate-800/80">
         <button id="tab-btn-route" type="button" class="py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition-all bg-amber-600 text-slate-950 shadow">
-          <span>📈 Skill Route (0–110)</span>
+          <span>📈 0–110 Guide</span>
+        </button>
+        <button id="tab-btn-ranks" type="button" class="py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition-all bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800">
+          <span>🏆 Rank Tests</span>
         </button>
         <button id="tab-btn-recipes" type="button" class="py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition-all bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800">
           <span id="tab-label-recipes">📖 Recipes (0)</span>
         </button>
         <button id="tab-btn-scraper" type="button" class="py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition-all bg-slate-950 text-emerald-400 hover:text-emerald-200 border border-emerald-900/70">
-          <span>🌐 Wiki Scraper (2,500+)</span>
+          <span>🌐 Wiki Scraper (3,000+)</span>
         </button>
-        <button id="tab-btn-cart" type="button" class="py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition-all bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800">
-          <span id="tab-label-cart">🛒 Material Cart (0)</span>
-        </button>
-        <button id="tab-btn-ranks" type="button" class="col-span-2 sm:col-span-1 py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition-all bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800">
-          <span>🏆 Rank Tests & 100</span>
+        <button id="tab-btn-cart" type="button" class="col-span-2 sm:col-span-1 py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition-all bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800">
+          <span id="tab-label-cart">🛒 Cart (0)</span>
         </button>
       </div>
 
@@ -244,8 +244,11 @@
             </select>
 
             <select id="filter-source" class="bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-200">
-              <option value="All">All Sources (Retail + CEXI + Scraped)</option>
-              <option value="Custom">CatsEyeXI Custom / Rebalanced Only</option>
+              <option value="All">All Types & Sources</option>
+              <option value="Custom">CatsEyeXI Custom / Rebalanced</option>
+              <option value="Endgame">Lv. 91–110 Endgame & Abjuration</option>
+              <option value="Consumables">Consumables / Tools / Ammo</option>
+              <option value="Materials">Materials / Lumber / Ingots / Cloth</option>
               <option value="Retail">Built-in Retail Only</option>
               <option value="Scraped">🌐 Wiki Scraped Recipes Only</option>
             </select>
@@ -258,7 +261,7 @@
           <div class="flex items-center gap-2">
             <span id="recipe-filter-count" class="text-slate-400 font-medium">Showing 0 recipes</span>
             <button id="btn-jump-bulk-scraper" type="button" class="px-3 py-1.5 rounded-lg bg-emerald-800 hover:bg-emerald-700 text-emerald-100 border border-emerald-600 font-bold">
-              🌐 Scrape All 2,500+ Guild Recipes
+              🌐 Scrape All 3,000+ Guild Recipes
             </button>
           </div>
         </div>
@@ -267,35 +270,44 @@
       <!-- Recipe Cards Grid -->
       <div id="recipes-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5"></div>
 
-      <!-- Load More Button -->
-      <div id="recipes-load-more-wrap" class="hidden text-center pt-2">
+      <!-- Load More Buttons -->
+      <div id="recipes-load-more-wrap" class="hidden flex flex-wrap items-center justify-center gap-2 pt-2">
         <button id="btn-load-more-recipes" type="button" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs border border-slate-700 shadow">
-          Show More Recipes (+60)
+          Show Next 100 Recipes
+        </button>
+        <button id="btn-load-all-recipes" type="button" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold text-xs border border-slate-700">
+          Show All Matching
         </button>
       </div>
     </section>
 
     <!-- =================================================================== -->
-    <!-- VIEW 3: BULK WIKI SCRAPER (2,500+ RECIPES ACROSS ALL 8 GUILDS) -->
+    <!-- VIEW 3: BULK WIKI SCRAPER (3,000+ RECIPES ACROSS ALL 8 GUILDS) -->
     <!-- =================================================================== -->
     <section id="view-scraper" class="hidden space-y-5">
       <div class="bg-gradient-to-r from-emerald-950/50 via-slate-900 to-indigo-950/50 border border-emerald-800/70 rounded-xl p-4 sm:p-5 space-y-3 shadow-lg">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div>
-            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500 text-slate-950">Live MediaWiki Synthesis Table Scraper</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500 text-slate-950">Multi-Strategy MediaWiki Synthesis Engine (v16 Fix)</span>
             <h2 class="text-lg sm:text-xl font-serif-title font-bold text-emerald-300 mt-1">
-              🌐 Bulk Guild Recipe Scraper (BG-Wiki & FFXIclopedia — 2,500+ Recipes)
+              🌐 Bulk Guild Recipe Scraper (BG-Wiki + FFXIclopedia — 2,500 to 3,200+ Recipes)
             </h2>
             <p class="text-xs text-slate-300 mt-1 leading-relaxed">
-              Just like the Quest Tracker scraper that pulled 885 quests, this engine connects directly to BG-Wiki and FFXIclopedia's live MediaWiki APIs, parses every synthesis table from <strong>Amateur (1–10)</strong> to <strong>Expert (101–110)</strong> across all 8 guilds, and imports every Crystal, Ingredient list, Subcraft, HQ1/HQ2/HQ3 tier, Job, and Slot into your local database!
+              This upgraded v16 parser walks every rank section heading (<strong>Amateur 1–10</strong> through <strong>Expert 101–110</strong>), detects crystals from text, links, and image alt tags, parses multi-row and single-row synthesis boxes, and queries both <strong>BG-Wiki</strong> and <strong>FFXIclopedia Rank Subpages</strong> so zero recipes are dropped!
             </p>
           </div>
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 flex-shrink-0">
             <button id="btn-scrape-all-guilds" type="button" class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs sm:text-sm shadow-lg transition-all">
-              ⚡ Scan & Import All 8 Guilds (2,500+ Recipes)
+              ⚡ Scan & Import All 8 Guilds (3,000+ Recipes)
+            </button>
+            <button id="btn-reset-and-rescrape" type="button" class="px-3.5 py-2.5 rounded-xl bg-rose-900/90 hover:bg-rose-800 text-rose-100 border border-rose-700 font-bold text-xs shadow transition-all" title="Clears old incomplete 81-recipe scrape and re-scrapes all 8 guilds cleanly">
+              🔄 Reset & Re-Scrape (Fix 81-Cap)
             </button>
           </div>
         </div>
+
+        <!-- Live Per-Guild Diagnostic Breakdown Bar -->
+        <div id="guild-diagnostic-bar" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-1.5 pt-2 border-t border-slate-800/80"></div>
 
         <!-- Scraper Options Row -->
         <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-800/80 text-xs">
@@ -485,30 +497,46 @@
           <option value="Furnishing">Furnishing</option>
         </select>
       </div>
-      <input id="add-rec-jobs" type="text" placeholder="Jobs (comma-separated, e.g. WAR, PLD, DRK or All Jobs)" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200" />
-      <textarea id="add-rec-ingredients" rows="3" required placeholder="Ingredients (one per line, e.g. 2x Iron Ingot, 1x Leather Highboots)" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200"></textarea>
-      <input id="add-rec-hq" type="text" placeholder="HQ Result & Stats / Notes (e.g. HQ: +1 Version | ATK+12)" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200" />
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <input id="add-rec-jobs" type="text" placeholder="Jobs (e.g. All Jobs or WAR/PLD/DRK)" class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200" />
+        <input id="add-rec-subcrafts" type="text" placeholder="Subcrafts (e.g. Goldsmithing 42)" class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200" />
+      </div>
+      <input id="add-rec-mats" type="text" required placeholder="Ingredients (comma-separated, e.g. 2x Iron Ore, 1x Ash Lumber)" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200" />
+      <input id="add-rec-hq" type="text" placeholder="HQ Result / Notes (e.g. HQ1: +1 Stat)" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200" />
       <div class="flex justify-end gap-2 pt-2">
-        <button id="btn-cancel-add-recipe" type="button" class="px-4 py-2 text-xs rounded-lg bg-slate-800 text-slate-300">Cancel</button>
-        <button type="submit" class="px-4 py-2 text-xs rounded-lg bg-amber-600 text-slate-950 font-bold">Save Recipe</button>
+        <button id="btn-cancel-add-recipe" type="button" class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-300">Cancel</button>
+        <button type="submit" class="px-4 py-1.5 text-xs rounded-lg bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold">Save Recipe</button>
       </div>
     </form>
   </div>
 
-  <!-- MODAL: BACKUP / RESTORE JSON -->
+  <!-- MODAL: BACKUP / RESTORE JSON (WITH .JSON FILE DOWNLOAD & UPLOAD FOR 3,000+ RECIPES) -->
   <div id="modal-backup" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-700 rounded-xl max-w-lg w-full p-5 space-y-3 shadow-2xl">
       <div class="flex justify-between items-center border-b border-slate-800 pb-2">
         <h3 class="text-base font-serif-title font-bold text-amber-400">Backup / Restore Crafting Database (JSON)</h3>
         <button id="btn-close-backup" type="button" class="text-slate-400 hover:text-white text-sm px-2">✕</button>
       </div>
-      <p class="text-xs text-slate-400">
-        Copy this JSON to back up your guild skills, cart, and all scraped Wiki recipes (so you can paste them onto Cloudflare Pages or your Pixel 9 Pro XL in one click).
+      <p class="text-xs text-slate-400 leading-relaxed">
+        Because 3,000+ scraped recipes is too large for some phone clipboards, use <strong>💾 Download .json File</strong> or <strong>📂 Upload .json File</strong> to move your full database between PC and your Pixel 9 Pro XL without truncation!
       </p>
-      <textarea id="backup-textarea" rows="8" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs font-mono text-slate-300"></textarea>
+      <div class="flex flex-wrap items-center gap-2">
+        <button id="btn-download-json-file" type="button" class="px-3 py-2 text-xs rounded-lg bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold shadow">
+          💾 Download .json File
+        </button>
+        <label class="px-3 py-2 text-xs rounded-lg bg-indigo-800 hover:bg-indigo-700 text-indigo-100 border border-indigo-600 font-bold cursor-pointer">
+          📂 Upload .json File
+          <input id="input-upload-json-file" type="file" accept=".json,application/json,text/plain" class="hidden" />
+        </label>
+        <button id="btn-copy-json" type="button" class="px-3 py-2 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">
+          📋 Copy JSON Text
+        </button>
+      </div>
+      <textarea id="backup-textarea" rows="7" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs font-mono text-slate-300"></textarea>
       <div class="flex justify-end gap-2 pt-2">
-        <button id="btn-copy-json" type="button" class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">Copy JSON</button>
-        <button id="btn-restore-json" type="button" class="px-3 py-1.5 text-xs rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white font-semibold">Restore JSON</button>
+        <button id="btn-restore-json" type="button" class="px-4 py-2 text-xs rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white font-bold">
+          Restore from Textarea
+        </button>
       </div>
     </div>
   </div>
@@ -851,10 +879,71 @@
       R("ret_silent_oil", "Silent Oil (x4 / x6 / x12)", "Alchemy", 41, "Water", "None", "Food / Consumable", ALL_JOBS, false, [{q:2,n:"Slime Oil"},{q:1,n:"Beeswax"}], "HQ3: 12x Silent Oil (Sneak)", "Sneak/Invis Staple"),
       R("ret_sole_sushi", "Sole Sushi (x4 / x6)", "Cooking", 66, "Earth", "None", "Food / Consumable", ALL_JOBS, false, [{q:1,n:"Black Sole"},{q:1,n:"Tarutaru Rice"},{q:1,n:"Rice Vinegar"},{q:1,n:"Distilled Water"},{q:1,n:"Ground Wasabi"}], "HQ: Sole Sushi +1 (Accuracy +16%, STR+5, DEX+6)", "Top Melee Accuracy Food"),
       R("ret_red_curry", "Red Curry / Red Curry Bun", "Cooking", 85, "Fire", "None", "Food / Consumable", ALL_JOBS, false, [{q:1,n:"Dragon Meat"},{q:1,n:"San d'Orian Carrot"},{q:1,n:"Kazham Peppers"},{q:1,n:"Curried Powder"},{q:1,n:"Distilled Water"}], "HQ: Red Curry +1 (Attack +25%, STR+7)", "Top Melee Attack Food"),
-      R("ret_yagudo_drink", "Yagudo Drink", "Cooking", 60, "Dark", "None", "Food / Consumable", ALL_JOBS, false, [{q:1,n:"Buburimu Grape"},{q:3,n:"Yagudo Cherry"}], "Refresh +2 MP/tick for 3 minutes", "Essential Caster Refresh Drink")
+      R("ret_yagudo_drink", "Yagudo Drink", "Cooking", 60, "Dark", "None", "Food / Consumable", ALL_JOBS, false, [{q:1,n:"Buburimu Grape"},{q:3,n:"Yagudo Cherry"}], "Refresh +2 MP/tick for 3 minutes", "Essential Caster Refresh Drink"),
+
+      // --- ADDITIONAL BUILT-IN RETAIL LUMBER, INGOTS, SHEETS, CLOTH, LEATHER, BONE, ALCHEMY & COOKING STAPLES ---
+      R("ret_arrowwood_lumber", "Arrowwood Lumber", "Woodworking", 2, "Wind", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Arrowwood Log"}], "HQ1: 2x | HQ2: 3x | HQ3: 4x Arrowwood Lumber", "Amateur Woodworking"),
+      R("ret_ash_lumber", "Ash Lumber", "Woodworking", 12, "Wind", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Ash Log"}], "HQ: Multiple Ash Lumber", "Recruit Woodworking"),
+      R("ret_maple_lumber", "Maple Lumber", "Woodworking", 16, "Wind", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Maple Log"}], "HQ: Multiple Maple Lumber", "Recruit Woodworking"),
+      R("ret_holly_lumber", "Holly Lumber", "Woodworking", 22, "Wind", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Holly Log"}], "HQ: Multiple Holly Lumber", "Initiate Woodworking"),
+      R("ret_willow_lumber", "Willow Lumber", "Woodworking", 23, "Wind", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Willow Log"}], "HQ: Multiple Willow Lumber", "Initiate Woodworking"),
+      R("ret_walnut_lumber", "Walnut Lumber", "Woodworking", 31, "Wind", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Walnut Log"}], "HQ: Multiple Walnut Lumber", "Novice Woodworking"),
+      R("ret_chestnut_lumber", "Chestnut Lumber", "Woodworking", 32, "Wind", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Chestnut Log"}], "HQ: Multiple Chestnut Lumber", "Novice Woodworking"),
+      R("ret_oak_lumber", "Oak Lumber", "Woodworking", 35, "Wind", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Oak Log"}], "HQ: Multiple Oak Lumber", "Novice Woodworking"),
+      R("ret_elm_lumber", "Elm Lumber", "Woodworking", 41, "Wind", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Elm Log"}], "HQ: Multiple Elm Lumber", "Apprentice Woodworking"),
+      R("ret_rosewood_lumber", "Rosewood Lumber", "Woodworking", 46, "Wind", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Rosewood Log"}], "HQ: Multiple Rosewood Lumber", "Apprentice Woodworking"),
+      R("ret_mahogany_lumber", "Mahogany Lumber", "Woodworking", 50, "Wind", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Mahogany Log"}], "HQ: Multiple Mahogany Lumber", "Apprentice Woodworking"),
+      R("ret_ebony_lumber", "Ebony Lumber", "Woodworking", 55, "Wind", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Ebony Log"}], "HQ: Multiple Ebony Lumber", "Journeyman Woodworking"),
+      R("ret_petrified_lumber", "Petrified Lumber", "Woodworking", 79, "Wind", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Petrified Log"}], "HQ: Multiple Petrified Lumber", "Artisan Woodworking"),
+      R("ret_lacquer_lumber", "Lacquer Tree Lumber", "Woodworking", 95, "Wind", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Lacquer Tree Log"}], "HQ: Multiple Lacquer Tree Lumber", "Veteran Woodworking"),
+      R("ret_lancewood_lumber", "Lancewood Lumber", "Woodworking", 99, "Wind", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Lancewood Log"}], "Momiji Lv.100 Relic Turn-in Material", "Veteran Woodworking"),
+      R("ret_bronze_ingot", "Bronze Ingot", "Smithing", 2, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:3,n:"Copper Ore"},{q:1,n:"Tin Ore"}], "Amateur Smithing", "Base Ingot"),
+      R("ret_bronze_sheet", "Bronze Sheet", "Smithing", 4, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Bronze Ingot"}], "Amateur Smithing", "Base Sheet"),
+      R("ret_iron_ingot", "Iron Ingot", "Smithing", 20, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:4,n:"Iron Ore"}], "Recruit Smithing", "Core Ingot"),
+      R("ret_iron_sheet", "Iron Sheet", "Smithing", 22, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Iron Ingot"}], "Initiate Smithing", "Core Sheet"),
+      R("ret_steel_ingot", "Steel Ingot", "Smithing", 32, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:4,n:"Iron Ore"},{q:1,n:"Bomb Ash"}], "Novice Smithing", "Core Ingot"),
+      R("ret_darksteel_ingot", "Darksteel Ingot", "Smithing", 52, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:3,n:"Iron Ore"},{q:1,n:"Darksteel Ore"}], "Journeyman Smithing", "Core Ingot"),
+      R("ret_darksteel_sheet", "Darksteel Sheet", "Smithing", 53, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Darksteel Ingot"}], "Journeyman Smithing", "Core Sheet"),
+      R("ret_adaman_ingot", "Adaman Ingot", "Smithing", 92, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:3,n:"Iron Ore"},{q:1,n:"Adaman Ore"}], "Veteran Smithing", "Endgame Ingot"),
+      R("ret_molybdenum_ingot", "Molybdenum Ingot", "Smithing", 97, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:3,n:"Iron Ore"},{q:1,n:"Molybdenum Ore"}], "Veteran Smithing", "Endgame Ingot"),
+      R("ret_molybdenum_sheet", "Molybdenum Sheet", "Smithing", 99, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Molybdenum Ingot"}], "Momiji Lv.100 Relic Turn-in Material", "Veteran Smithing"),
+      R("ret_copper_ingot", "Copper Ingot", "Goldsmithing", 3, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:4,n:"Copper Ore"}], "Amateur Goldsmithing", "Base Ingot"),
+      R("ret_brass_ingot", "Brass Ingot", "Goldsmithing", 9, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:3,n:"Copper Ore"},{q:1,n:"Zinc Ore"}], "Amateur Goldsmithing", "Base Ingot"),
+      R("ret_silver_ingot", "Silver Ingot", "Goldsmithing", 20, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:4,n:"Silver Ore"}], "Recruit Goldsmithing", "Core Ingot"),
+      R("ret_mythril_ingot", "Mythril Ingot", "Goldsmithing", 38, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:4,n:"Mythril Ore"}], "Novice Goldsmithing", "Core Ingot"),
+      R("ret_gold_ingot", "Gold Ingot", "Goldsmithing", 51, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:3,n:"Gold Ore"},{q:1,n:"Brass Ingot"}], "Journeyman Goldsmithing", "Core Ingot"),
+      R("ret_platinum_ingot", "Platinum Ingot", "Goldsmithing", 67, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:3,n:"Platinum Ore"},{q:1,n:"Gold Ingot"}], "Craftsman Goldsmithing", "Core Ingot"),
+      R("ret_orichalcum_ingot", "Orichalcum Ingot", "Goldsmithing", 94, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:3,n:"Gold Ore"},{q:1,n:"Orichalcum Ore"}], "Veteran Goldsmithing", "Endgame Ingot"),
+      R("ret_ruthenium_ingot", "Ruthenium Ingot", "Goldsmithing", 99, "Fire", "None", "Material / Component", ALL_JOBS, false, [{q:3,n:"Gold Ore"},{q:1,n:"Ruthenium Ore"}], "Momiji Lv.100 Relic Turn-in Material", "Veteran Goldsmithing"),
+      R("ret_grass_thread", "Grass Thread", "Clothcraft", 2, "Earth", "None", "Material / Component", ALL_JOBS, false, [{q:2,n:"Moko Grass"}], "Amateur Clothcraft", "Base Thread"),
+      R("ret_grass_cloth", "Grass Cloth", "Clothcraft", 4, "Earth", "None", "Material / Component", ALL_JOBS, false, [{q:3,n:"Grass Thread"}], "Amateur Clothcraft", "Base Cloth"),
+      R("ret_cotton_thread", "Cotton Thread", "Clothcraft", 11, "Earth", "None", "Material / Component", ALL_JOBS, false, [{q:2,n:"Saruta Cotton"}], "Recruit Clothcraft", "Core Thread"),
+      R("ret_cotton_cloth", "Cotton Cloth", "Clothcraft", 12, "Earth", "None", "Material / Component", ALL_JOBS, false, [{q:3,n:"Cotton Thread"}], "Recruit Clothcraft", "Core Cloth"),
+      R("ret_linen_thread", "Linen Thread", "Clothcraft", 21, "Earth", "None", "Material / Component", ALL_JOBS, false, [{q:2,n:"Flax Flower"}], "Initiate Clothcraft", "Core Thread"),
+      R("ret_linen_cloth", "Linen Cloth", "Clothcraft", 22, "Earth", "None", "Material / Component", ALL_JOBS, false, [{q:3,n:"Linen Thread"}], "Initiate Clothcraft", "Core Cloth"),
+      R("ret_wool_thread", "Wool Thread", "Clothcraft", 34, "Earth", "None", "Material / Component", ALL_JOBS, false, [{q:2,n:"Sheep Wool"}], "Novice Clothcraft", "Core Thread"),
+      R("ret_wool_cloth", "Wool Cloth", "Clothcraft", 37, "Earth", "None", "Material / Component", ALL_JOBS, false, [{q:3,n:"Wool Thread"}], "Novice Clothcraft", "Core Cloth"),
+      R("ret_velvet_cloth", "Velvet Cloth", "Clothcraft", 45, "Earth", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Cotton Thread"},{q:2,n:"Silk Thread"}], "Apprentice Clothcraft", "Core Cloth"),
+      R("ret_silk_thread", "Silk Thread", "Clothcraft", 51, "Earth", "None", "Material / Component", ALL_JOBS, false, [{q:2,n:"Crawler Cocoon"}], "Journeyman Clothcraft", "Core Thread"),
+      R("ret_silk_cloth", "Silk Cloth", "Clothcraft", 53, "Earth", "None", "Material / Component", ALL_JOBS, false, [{q:3,n:"Silk Thread"}], "Journeyman Clothcraft", "Core Cloth"),
+      R("ret_rainbow_thread", "Rainbow Thread", "Clothcraft", 68, "Earth", "None", "Material / Component", ALL_JOBS, false, [{q:2,n:"Spider Web"}], "Craftsman Clothcraft", "Core Thread"),
+      R("ret_rainbow_cloth", "Rainbow Cloth", "Clothcraft", 75, "Earth", "None", "Material / Component", ALL_JOBS, false, [{q:3,n:"Rainbow Thread"}], "Artisan Clothcraft", "Core Cloth"),
+      R("ret_arachne_thread", "Arachne Thread", "Clothcraft", 89, "Earth", "None", "Material / Component", ALL_JOBS, false, [{q:2,n:"Boyahda Moss"},{q:1,n:"Spider Web"}], "Adept Clothcraft", "Endgame Thread"),
+      R("ret_foulard", "Foulard", "Clothcraft", 99, "Earth", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Gold Thread"},{q:2,n:"Silk Thread"}], "Momiji Lv.100 Relic Turn-in Material", "Veteran Clothcraft"),
+      R("ret_sheep_leather", "Sheep Leather", "Leathercraft", 2, "Dark", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Sheepskin"},{q:1,n:"Windurstian Tea Leaves"},{q:1,n:"Distilled Water"}], "Amateur Leathercraft", "Base Leather"),
+      R("ret_dhalmel_leather", "Dhalmel Leather", "Leathercraft", 18, "Dark", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Dhalmel Hide"},{q:1,n:"Windurstian Tea Leaves"},{q:1,n:"Distilled Water"}], "Recruit Leathercraft", "Core Leather"),
+      R("ret_ram_leather", "Ram Leather", "Leathercraft", 35, "Dark", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Ram Skin"},{q:1,n:"Windurstian Tea Leaves"},{q:1,n:"Distilled Water"}], "Novice Leathercraft", "Core Leather"),
+      R("ret_tiger_leather", "Tiger Leather", "Leathercraft", 59, "Dark", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Black Tiger Skin"},{q:1,n:"Windurstian Tea Leaves"},{q:1,n:"Distilled Water"}], "Journeyman Leathercraft", "Core Leather"),
+      R("ret_coeurl_leather", "Coeurl Leather", "Leathercraft", 69, "Dark", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Coeurl Hide"},{q:1,n:"Windurstian Tea Leaves"},{q:1,n:"Distilled Water"}], "Craftsman Leathercraft", "Core Leather"),
+      R("ret_marid_leather", "Marid Leather", "Leathercraft", 75, "Dark", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Marid Hide"},{q:1,n:"Windurstian Tea Leaves"},{q:1,n:"Distilled Water"}], "Artisan Leathercraft", "Core Leather"),
+      R("ret_lynx_leather", "Lynx Leather", "Leathercraft", 79, "Dark", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Coeurl Hide"},{q:1,n:"Windurstian Tea Leaves"},{q:1,n:"Distilled Water"}], "Artisan Leathercraft", "Core Leather"),
+      R("ret_manticore_leather", "Manticore Leather", "Leathercraft", 99, "Dark", "None", "Material / Component", ALL_JOBS, false, [{q:1,n:"Manticore Hide"},{q:1,n:"Windurstian Tea Leaves"},{q:1,n:"Distilled Water"}], "Momiji Lv.100 Relic Turn-in Material", "Veteran Leathercraft"),
+      R("ret_cronus_tathlum", "Cronus's Tathlum", "Bonecraft", 99, "Wind", "None", "Ranged / Ammo", ALL_JOBS, false, [{q:1,n:"Wyvern Scales"},{q:1,n:"Boyahda Moss"}], "Momiji Lv.100 Relic Turn-in Material", "Veteran Bonecraft"),
+      R("ret_icarus_wing", "Icarus Wing", "Alchemy", 99, "Water", "None", "Food / Consumable", ALL_JOBS, false, [{q:2,n:"Beeswax"},{q:2,n:"Giant Bird Plume"}], "Momiji Lv.100 Relic Turn-in & Instant 1000 TP Med", "Veteran Alchemy"),
+      R("ret_royal_omelette", "Royal Omelette", "Cooking", 99, "Fire", "None", "Food / Consumable", ALL_JOBS, false, [{q:1,n:"San d'Orian Flour"},{q:1,n:"Selbina Butter"},{q:3,n:"Apkallu Egg"}], "Momiji Lv.100 Relic Turn-in & Melee Food", "Veteran Cooking")
     ];
 
-    const DB_VERSION = "cexi_craft_db_v15";
+    const DB_VERSION = "cexi_craft_db_v16";
 
     // =========================================================================
     // 3. APPLICATION STATE & STORAGE
@@ -888,20 +977,20 @@
 
     function initStorage() {
       try {
-        const savedSkills = localStorage.getItem("cexi_craft_skills_v15");
+        const savedSkills = localStorage.getItem("cexi_craft_skills_v16") || localStorage.getItem("cexi_craft_skills_v15");
         if (savedSkills) {
           guildSkills = { ...guildSkills, ...JSON.parse(savedSkills) };
         }
-        const savedCart = localStorage.getItem("cexi_craft_cart_v15");
+        const savedCart = localStorage.getItem("cexi_craft_cart_v16") || localStorage.getItem("cexi_craft_cart_v15");
         if (savedCart) cart = JSON.parse(savedCart);
 
-        const savedChecked = localStorage.getItem("cexi_craft_checked_v15");
+        const savedChecked = localStorage.getItem("cexi_craft_checked_v16") || localStorage.getItem("cexi_craft_checked_v15");
         if (savedChecked) checkedIngredients = JSON.parse(savedChecked);
 
-        const savedRanks = localStorage.getItem("cexi_craft_ranks_v15");
+        const savedRanks = localStorage.getItem("cexi_craft_ranks_v16") || localStorage.getItem("cexi_craft_ranks_v15");
         if (savedRanks) completedRanks = JSON.parse(savedRanks);
 
-        const savedRecipesRaw = localStorage.getItem("cexi_recipes_v15");
+        const savedRecipesRaw = localStorage.getItem("cexi_recipes_v16") || localStorage.getItem("cexi_recipes_v15");
         let customAndScraped = [];
         if (savedRecipesRaw) {
           const parsed = JSON.parse(savedRecipesRaw);
@@ -914,7 +1003,7 @@
         const uniqueExtra = customAndScraped.filter(r => !existingKeys.has(`${(r.guild || "").toLowerCase()}::${(r.name || "").toLowerCase()}`));
 
         recipes = [...INITIAL_RECIPES, ...uniqueExtra];
-        localStorage.setItem("cexi_recipes_v15", JSON.stringify(recipes));
+        localStorage.setItem("cexi_recipes_v16", JSON.stringify(recipes));
       } catch (e) {
         recipes = [...INITIAL_RECIPES];
       }
@@ -922,20 +1011,20 @@
 
     function saveRecipes() {
       try {
-        localStorage.setItem("cexi_recipes_v15", JSON.stringify(recipes));
+        localStorage.setItem("cexi_recipes_v16", JSON.stringify(recipes));
       } catch (e) {}
     }
 
     function saveSkills() {
       try {
-        localStorage.setItem("cexi_craft_skills_v15", JSON.stringify(guildSkills));
+        localStorage.setItem("cexi_craft_skills_v16", JSON.stringify(guildSkills));
       } catch (e) {}
     }
 
     function saveCart() {
       try {
-        localStorage.setItem("cexi_craft_cart_v15", JSON.stringify(cart));
-        localStorage.setItem("cexi_craft_checked_v15", JSON.stringify(checkedIngredients));
+        localStorage.setItem("cexi_craft_cart_v16", JSON.stringify(cart));
+        localStorage.setItem("cexi_craft_checked_v16", JSON.stringify(checkedIngredients));
       } catch (e) {}
     }
 
@@ -1043,180 +1132,333 @@
       return "Fire";
     }
 
-    // Parse HTML tables returned by BG-Wiki or FFXIclopedia Guild Recipe pages
-    function parseGuildHtmlTables(htmlString, guildName, excludeKitsAndOver110 = true) {
+    // Detect crystal in any DOM element or text (supports text, <a> title, and <img> alt/src)
+    function detectCrystalInNode(node) {
+      if (!node) return null;
+      const txt = node.textContent || "";
+      const mTxt = txt.match(/\b(Fire|Ice|Wind|Earth|Lightning|Thunder|Water|Light|Dark)\s*(?:Crystal|Cluster)?\b/i);
+      if (mTxt && /crystal/i.test(txt)) {
+        return normalizeCrystal(mTxt[1]);
+      }
+      // Check image alt or link title for Crystal
+      const els = node.querySelectorAll ? node.querySelectorAll("img[alt], a[title]") : [];
+      for (const el of els) {
+        const attr = (el.getAttribute("alt") || "") + " " + (el.getAttribute("title") || "");
+        const mAttr = attr.match(/\b(Fire|Ice|Wind|Earth|Lightning|Thunder|Water|Light|Dark)\s*Crystal/i);
+        if (mAttr) return normalizeCrystal(mAttr[1]);
+      }
+      return null;
+    }
+
+    // Map rank heading text to fallback skill cap ceiling
+    function detectBracketCapFromHeading(headingText) {
+      const t = String(headingText || "").toLowerCase();
+      const rangeMatch = t.match(/(\d{1,3})\s*[-–~to]+\s*(\d{1,3})/);
+      if (rangeMatch) {
+        return parseInt(rangeMatch[2], 10);
+      }
+      if (t.includes("amateur")) return 10;
+      if (t.includes("recruit")) return 20;
+      if (t.includes("initiate")) return 30;
+      if (t.includes("novice")) return 40;
+      if (t.includes("apprentice")) return 50;
+      if (t.includes("journeyman")) return 60;
+      if (t.includes("craftsman")) return 70;
+      if (t.includes("artisan")) return 80;
+      if (t.includes("adept")) return 90;
+      if (t.includes("veteran")) return 100;
+      if (t.includes("expert")) return 110;
+      if (t.includes("authority")) return 120;
+      return null;
+    }
+
+    // =========================================================================
+    // MULTI-STRATEGY GUILD TABLE PARSER (EXTRACTS ALL 2,500–3,200+ RECIPES)
+    // =========================================================================
+    function parseGuildHtmlTables(htmlString, guildName, excludeKitsAndOver110 = true, defaultBracketCap = 50) {
       const parser = new DOMParser();
       const doc = parser.parseFromString(htmlString, "text/html");
-      const tables = doc.querySelectorAll("table");
       const results = [];
-      const seenNames = new Set();
+      const seenKeys = new Set();
 
-      tables.forEach(table => {
-        const rows = table.querySelectorAll("tr");
-        rows.forEach(row => {
-          const cells = row.querySelectorAll("td");
-          if (cells.length < 4) return;
+      let currentSectionCap = defaultBracketCap;
 
-          const rowText = row.textContent.replace(/\s+/g, " ").trim();
-          if (!/(fire|ice|wind|earth|lightning|water|light|dark)/i.test(rowText)) return;
+      // Walk headings and tables in document order so we always know which Rank Bracket (10..110) a table is inside
+      const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_ELEMENT);
+      let node = walker.currentNode;
 
-          // Determine column layout:
-          // BG-Wiki Craft tables typically have: [Recipe Name / Yield] | [Rank/Cap or Subcrafts] | [Crystal] | [Ingredients] | [HQ Results]
-          const c0 = cells[0].textContent.replace(/\s+/g, " ").trim();
-          const c1 = cells[1].textContent.replace(/\s+/g, " ").trim();
-          const c2 = cells[2].textContent.replace(/\s+/g, " ").trim();
-          const c3 = cells[3].textContent.replace(/\s+/g, " ").trim();
-          const c4 = cells[4] ? cells[4].textContent.replace(/\s+/g, " ").trim() : "";
-          const c5 = cells[5] ? cells[5].textContent.replace(/\s+/g, " ").trim() : "";
-
-          let name = "";
-          let cap = 0;
-          let subcrafts = "None";
-          let crystal = "Fire";
-          let rawIngText = "";
-          let hqText = "";
-
-          // Pattern A: Cell 0 is numeric Skill Cap (e.g., "12" or "41-42"), Cell 1 is Item Name
-          if (/^\d{1,3}(?:\s*[-–~]\s*\d{1,3})?$/.test(c0)) {
-            const capNums = c0.match(/\d+/g);
-            cap = capNums ? parseInt(capNums[capNums.length - 1], 10) : 1;
-            name = c1;
-            // Check where crystal is
-            if (/^(fire|ice|wind|earth|lightning|water|light|dark)/i.test(c2)) {
-              crystal = normalizeCrystal(c2);
-              rawIngText = c3;
-              hqText = c4;
-            } else if (/^(fire|ice|wind|earth|lightning|water|light|dark)/i.test(c3)) {
-              subcrafts = c2 || "None";
-              crystal = normalizeCrystal(c3);
-              rawIngText = c4;
-              hqText = c5;
-            }
-          }
-          // Pattern B: Cell 0 is Item Name, Cell 1 has Skill Cap (e.g. "Woodworking (53)" or "53")
-          else {
-            name = c0;
-            const capMatch = (c1 + " " + c2).match(/\b(\d{1,3})\b/);
-            cap = capMatch ? parseInt(capMatch[1], 10) : 1;
-            if (/(fire|ice|wind|earth|lightning|water|light|dark)/i.test(c2)) {
-              crystal = normalizeCrystal(c2);
-              subcrafts = c1.replace(/^\d+\s*/, "").trim() || "None";
-              rawIngText = c3;
-              hqText = c4;
-            } else if (/(fire|ice|wind|earth|lightning|water|light|dark)/i.test(c1)) {
-              crystal = normalizeCrystal(c1);
-              rawIngText = c2;
-              hqText = c3;
-            } else if (/(fire|ice|wind|earth|lightning|water|light|dark)/i.test(c3)) {
-              subcrafts = c1;
-              crystal = normalizeCrystal(c3);
-              rawIngText = c4;
-              hqText = c5;
-            }
-          }
-
-          // Clean name
-          name = name.replace(/\[\d+\]/g, "").replace(/\s+/g, " ").trim();
-          if (!name || name.length < 3 || /^(item|recipe|result|yield|skill|crystal|rank)$/i.test(name)) return;
-          if (excludeKitsAndOver110) {
-            if (cap > 110) return;
-            if (/synth\.?\s*kit|synthesis kit/i.test(name + " " + rawIngText)) return;
-          }
-          if (cap < 1 || cap > 120) cap = 50;
-
-          // Parse ingredients from list items or line breaks inside ingredient cell
-          const ingCell = Array.from(cells).find(td => td.textContent.replace(/\s+/g, " ").trim() === rawIngText) || cells[3];
-          const liNodes = ingCell ? ingCell.querySelectorAll("li") : [];
-          let mats = [];
-          if (liNodes && liNodes.length > 0) {
-            liNodes.forEach(li => {
-              const txt = li.textContent.replace(/\s+/g, " ").trim();
-              const m = txt.match(/^(?:(\d+)\s*[x×]\s*)?(.+?)(?:\s*[x×]\s*(\d+))?$/i);
-              if (m) {
-                const qty = parseInt(m[1] || m[3] || "1", 10) || 1;
-                const matName = m[2].trim();
-                if (matName && !/crystal/i.test(matName)) mats.push({ q: qty, n: matName });
-              }
-            });
-          } else if (rawIngText) {
-            const parts = rawIngText.split(/[,•\n]+/).map(s => s.trim()).filter(Boolean);
-            parts.forEach(p => {
-              const m = p.match(/^(?:(\d+)\s*[x×]\s*)?(.+?)(?:\s*[x×]\s*(\d+))?$/i);
-              if (m) {
-                const qty = parseInt(m[1] || m[3] || "1", 10) || 1;
-                const matName = m[2].trim();
-                if (matName && matName.length > 2 && !/crystal/i.test(matName)) {
-                  mats.push({ q: qty, n: matName });
+      while (node) {
+        const tag = node.tagName ? node.tagName.toUpperCase() : "";
+        if (tag === "H2" || tag === "H3" || tag === "H4") {
+          const bCap = detectBracketCapFromHeading(node.textContent);
+          if (bCap !== null) currentSectionCap = bCap;
+        } else if (tag === "TR") {
+          const row = node;
+          const cells = Array.from(row.querySelectorAll(":scope > td, :scope > th"));
+          if (cells.length >= 2) {
+            const crystal = detectCrystalInNode(row);
+            if (crystal) {
+              // Skip pure table header rows
+              const allTh = cells.every(c => c.tagName.toUpperCase() === "TH");
+              if (!allTh) {
+                const parsedRecipe = extractRecipeFromRow(row, cells, crystal, guildName, currentSectionCap, excludeKitsAndOver110);
+                if (parsedRecipe) {
+                  const firstMat = parsedRecipe.mats[0] ? parsedRecipe.mats[0].n.toLowerCase() : "";
+                  const dedupeKey = `${guildName.toLowerCase()}::${parsedRecipe.name.toLowerCase()}::${parsedRecipe.crystal.toLowerCase()}::${firstMat}`;
+                  if (!seenKeys.has(dedupeKey)) {
+                    seenKeys.add(dedupeKey);
+                    results.push(parsedRecipe);
+                  }
                 }
               }
-            });
+            }
           }
-          if (mats.length === 0) return;
-
-          const dedupeKey = `${guildName.toLowerCase()}::${name.toLowerCase()}`;
-          if (seenNames.has(dedupeKey)) return;
-          seenNames.add(dedupeKey);
-
-          const inferred = inferSlotAndJobs(name, guildName);
-          results.push({
-            id: `wiki_${guildName.toLowerCase()}_${name.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`,
-            name,
-            guild: guildName,
-            cap,
-            crystal,
-            subcrafts: subcrafts || "None",
-            slot: inferred.slot,
-            jobs: inferred.jobs,
-            isCustom: false,
-            isScraped: true,
-            mats: mats.slice(0, 8),
-            hq: hqText ? hqText.slice(0, 140) : "See HQ Tiers (+11 / +31 / +51)",
-            notes: `Scraped from ${guildName} Wiki Table`
-          });
-        });
-      });
+        }
+        node = walker.nextNode();
+      }
 
       return results;
     }
 
-    // Fetch all recipes for a single Crafting Guild from BG-Wiki + FFXIclopedia fallback
-    async function scrapeGuildRecipesFromWiki(guildName) {
-      const excludeKits = document.getElementById("chk-exclude-kits")?.checked ?? true;
-      let parsedList = [];
+    function extractRecipeFromRow(row, cells, crystal, guildName, fallbackCap, excludeKitsAndOver110) {
+      const cellTexts = cells.map(c => c.textContent.replace(/\s+/g, " ").trim());
+      let name = "";
+      let cap = fallbackCap || 50;
+      let subcrafts = "None";
+      let hqText = "";
+      let mats = [];
 
-      // 1. Try BG-Wiki Main Guild Page (contains full Amateur -> Expert synthesis tables)
+      // 1. Identify which cell holds the Crystal & Ingredients
+      let ingCellIndex = -1;
+      for (let i = cells.length - 1; i >= 0; i--) {
+        if (detectCrystalInNode(cells[i]) || cells[i].querySelectorAll("li").length >= 1) {
+          if (i > 0) {
+            ingCellIndex = i;
+            break;
+          }
+        }
+      }
+      if (ingCellIndex === -1) ingCellIndex = Math.min(cells.length - 1, 2);
+
+      // 2. Extract Item Name & HQ info
+      // Check if Cell 0 is a pure number (FFXIclopedia style: [Cap] | [Item Name] | [Crystal] | [Ingredients])
+      if (/^\d{1,3}(?:\s*[-–~]\s*\d{1,3})?$/.test(cellTexts[0]) && cells.length >= 3) {
+        const nums = cellTexts[0].match(/\d+/g);
+        cap = nums ? parseInt(nums[nums.length - 1], 10) : fallbackCap;
+        name = extractCleanItemName(cells[1]);
+        hqText = extractHqFromCell(cells[1], cells[cells.length - 1]);
+      } else {
+        // BG-Wiki style: Cell 0 is Item Name (plus optional HQ1/HQ2/HQ3 list inside Cell 0)
+        name = extractCleanItemName(cells[0]);
+        hqText = extractHqFromCell(cells[0], cells[cells.length - 1]);
+
+        // If Cell 0 was empty or a rowspan continuation, check previous sibling row
+        if ((!name || /^(fire|ice|wind|earth|lightning|water|light|dark)/i.test(name)) && row.previousElementSibling) {
+          name = extractCleanItemName(row.previousElementSibling);
+        }
+
+        // Extract Skill Cap from any cell between 0 and ingCellIndex
+        let foundExplicitCap = null;
+        for (let i = 1; i < cells.length; i++) {
+          const txt = cellTexts[i];
+          // Explicit guild name + number, e.g. "Woodworking (53)" or "Woodworking 53"
+          const gMatch = txt.match(new RegExp(`${guildName}\\s*[-:()]*\\s*(\\d{1,3})`, "i"));
+          if (gMatch) {
+            foundExplicitCap = parseInt(gMatch[1], 10);
+            subcrafts = txt.replace(gMatch[0], "").replace(/^[,\s/-]+|[,\s/-]+$/g, "").trim() || "None";
+            break;
+          }
+          // Standalone number or leading number in the Skill column (Cell 1)
+          if (i === 1) {
+            const leadNum = txt.match(/(?:^|\b)(\d{1,3})(?:\b|$)/);
+            if (leadNum) {
+              const nVal = parseInt(leadNum[1], 10);
+              if (nVal >= 1 && nVal <= 120) {
+                foundExplicitCap = nVal;
+                const rem = txt.replace(leadNum[0], "").replace(/[()]/g, "").trim();
+                if (rem && rem.length > 2) subcrafts = rem;
+              }
+            }
+          }
+        }
+        if (foundExplicitCap !== null) cap = foundExplicitCap;
+      }
+
+      if (!name || name.length < 2) return null;
+      if (/^(recipe|item|result|yield|crystal|main|sub|skill|level|rank|ingredients)$/i.test(name)) return null;
+
+      if (excludeKitsAndOver110) {
+        if (cap > 110) return null;
+        if (/synth\.?\s*kit|synthesis kit|\bkit\s+\d+\b/i.test(name + " " + cellTexts.join(" "))) return null;
+      }
+
+      // 3. Extract Ingredients from `li` items, links, or text in ingredient cell(s)
+      const candidateIngCells = [cells[ingCellIndex]];
+      if (cells[ingCellIndex + 1]) candidateIngCells.push(cells[ingCellIndex + 1]);
+
+      for (const cNode of candidateIngCells) {
+        if (!cNode) continue;
+        const lis = Array.from(cNode.querySelectorAll("li"));
+        if (lis.length > 0) {
+          lis.forEach(li => {
+            const rawLi = li.textContent.replace(/\s+/g, " ").trim();
+            if (/crystal/i.test(rawLi)) return;
+            if (/^HQ\s*[123]?:/i.test(rawLi)) return;
+            const parsedMat = parseIngredientString(rawLi);
+            if (parsedMat) mats.push(parsedMat);
+          });
+        }
+      }
+
+      // Fallback if ingredients weren't in `<li>` tags (e.g. `<br>` or comma-separated links in FFXIclopedia)
+      if (mats.length === 0) {
+        for (let i = 1; i < cells.length; i++) {
+          const cNode = cells[i];
+          // Clone and replace <br> with newlines
+          const htmlWithLines = cNode.innerHTML.replace(/<br\s*\/?>/gi, "\n").replace(/<\/li>/gi, "\n");
+          const tempDiv = document.createElement("div");
+          tempDiv.innerHTML = htmlWithLines;
+          const lines = tempDiv.textContent.split(/[\n,•]+/).map(s => s.replace(/\s+/g, " ").trim()).filter(Boolean);
+          lines.forEach(line => {
+            if (/crystal/i.test(line)) return;
+            if (/^(woodworking|smithing|goldsmithing|clothcraft|leathercraft|bonecraft|alchemy|cooking|fishing|none)\s*\d*$/i.test(line)) return;
+            if (/^\d{1,3}$/.test(line)) return;
+            if (/^HQ\s*[123]?:/i.test(line)) return;
+            const parsedMat = parseIngredientString(line);
+            if (parsedMat) mats.push(parsedMat);
+          });
+          if (mats.length > 0) break;
+        }
+      }
+
+      // Consolidate duplicate ingredient rows (e.g. 2 links to Copper Ore)
+      const consolidatedMats = [];
+      mats.forEach(m => {
+        const existing = consolidatedMats.find(x => x.n.toLowerCase() === m.n.toLowerCase());
+        if (existing) existing.q += m.q;
+        else consolidatedMats.push(m);
+      });
+
+      if (consolidatedMats.length === 0) return null;
+
+      const inferred = inferSlotAndJobs(name, guildName);
+      const slug = `${guildName}_${name}_${crystal}_${consolidatedMats[0].n}`.toLowerCase().replace(/[^a-z0-9]+/g, "_").slice(0, 80);
+
+      return {
+        id: `wiki_${slug}`,
+        name,
+        guild: guildName,
+        cap: Math.min(110, Math.max(1, cap || 50)),
+        crystal,
+        subcrafts: subcrafts || "None",
+        slot: inferred.slot,
+        jobs: inferred.jobs,
+        isCustom: false,
+        isScraped: true,
+        mats: consolidatedMats.slice(0, 8),
+        hq: hqText || "See HQ Tiers (+11 / +31 / +51)",
+        notes: `Scraped from ${guildName} Wiki (Lv.${cap})`
+      };
+    }
+
+    function extractCleanItemName(cell) {
+      if (!cell) return "";
+      // Prefer the first bold link or first non-crystal link inside the item cell
+      const links = Array.from(cell.querySelectorAll("a"));
+      for (const a of links) {
+        const t = a.textContent.replace(/\s+/g, " ").trim();
+        if (t && t.length >= 2 && !/crystal/i.test(t) && !/^edit$/i.test(t)) {
+          // Check if there is a quantity multiplier right after the link (e.g. "x33")
+          const fullTxt = cell.textContent.replace(/\s+/g, " ").trim();
+          const qtyMatch = fullTxt.match(new RegExp(t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\s*(x\\s*\\d+)", "i"));
+          return qtyMatch ? `${t} (${qtyMatch[1].replace(/\s+/g, "")})` : t;
+        }
+      }
+      // Fallback to first line of text before "HQ1:"
+      const raw = cell.textContent.split(/HQ\s*1?:/i)[0].replace(/\[\d+\]/g, "").replace(/\s+/g, " ").trim();
+      return raw.slice(0, 75);
+    }
+
+    function extractHqFromCell(firstCell, lastCell) {
+      const combined = ((firstCell ? firstCell.textContent : "") + " " + (lastCell ? lastCell.textContent : "")).replace(/\s+/g, " ").trim();
+      const hqMatch = combined.match(/(HQ\s*1?:.+)$/i);
+      if (hqMatch) return hqMatch[1].slice(0, 140);
+      return "";
+    }
+
+    function parseIngredientString(str) {
+      const clean = String(str || "").replace(/\[\d+\]/g, "").replace(/\s+/g, " ").trim();
+      if (!clean || clean.length < 2) return null;
+      const m = clean.match(/^(?:(\d+)\s*[x×]\s*)?(.+?)(?:\s*[x×]\s*(\d+))?$/i);
+      if (!m) return null;
+      const qty = parseInt(m[1] || m[3] || "1", 10) || 1;
+      const matName = m[2].replace(/^[•\-*:\s]+|[•\-*:\s]+$/g, "").trim();
+      if (!matName || matName.length < 2 || /^(none|n\/a|crystal)$/i.test(matName)) return null;
+      return { q: qty, n: matName };
+    }
+
+    // Fetch ALL recipes for a single Crafting Guild using Strategy A (BG-Wiki) + Strategy B (FFXIclopedia Rank Subpages)
+    async function scrapeGuildRecipesFromWiki(guildName, onProgressUpdate) {
+      const excludeKits = document.getElementById("chk-exclude-kits")?.checked ?? true;
+      const combinedMap = new Map();
+
+      const addListToMap = (list) => {
+        list.forEach(item => {
+          const firstMat = item.mats[0] ? item.mats[0].n.toLowerCase() : "";
+          const key = `${item.guild.toLowerCase()}::${item.name.toLowerCase()}::${item.crystal.toLowerCase()}::${firstMat}`;
+          if (!combinedMap.has(key)) combinedMap.set(key, item);
+        });
+      };
+
+      // STRATEGY A: BG-Wiki Main Guild Page (has Amateur 1-10 through Expert 101-110 tables)
       try {
+        if (onProgressUpdate) onProgressUpdate(`Querying BG-Wiki ${guildName} master recipe tables...`);
         const bgUrl = `https://www.bg-wiki.com/api.php?action=parse&page=${encodeURIComponent(guildName)}&prop=text&format=json&origin=*`;
         const res = await fetch(bgUrl);
         if (res.ok) {
           const data = await res.json();
           const html = data?.parse?.text?.["*"] || "";
           if (html) {
-            parsedList = parseGuildHtmlTables(html, guildName, excludeKits);
+            const bgList = parseGuildHtmlTables(html, guildName, excludeKits, 50);
+            addListToMap(bgList);
           }
         }
       } catch (e) {}
 
-      // 2. If BG-Wiki returned fewer than 20 recipes, also query FFXIclopedia Guild Recipes subpages
-      if (parsedList.length < 20) {
-        const pagesToTry = [`${guildName}`, `Category:${guildName}_Recipes`];
-        for (const p of pagesToTry) {
-          try {
-            const ffxiUrl = `https://ffxiclopedia.fandom.com/api.php?action=parse&page=${encodeURIComponent(p)}&prop=text&format=json&origin=*`;
-            const res2 = await fetch(ffxiUrl);
-            if (res2.ok) {
-              const d2 = await res2.json();
-              const html2 = d2?.parse?.text?.["*"] || "";
-              if (html2) {
-                const more = parseGuildHtmlTables(html2, guildName, excludeKits);
-                parsedList = [...parsedList, ...more];
-              }
+      // STRATEGY B: FFXIclopedia Rank Subpages & Guild Recipe Pages (ensures 100% coverage if any bracket was collapsed/transcluded)
+      const ffxiPages = [
+        { page: `${guildName}`, cap: 50 },
+        { page: `Category:${guildName}/Amateur_(1-10)`, cap: 10 },
+        { page: `Category:${guildName}/Recruit_(11-20)`, cap: 20 },
+        { page: `Category:${guildName}/Initiate_(21-30)`, cap: 30 },
+        { page: `Category:${guildName}/Novice_(31-40)`, cap: 40 },
+        { page: `Category:${guildName}/Apprentice_(41-50)`, cap: 50 },
+        { page: `Category:${guildName}/Journeyman_(51-60)`, cap: 60 },
+        { page: `Category:${guildName}/Craftsman_(61-70)`, cap: 70 },
+        { page: `Category:${guildName}/Artisan_(71-80)`, cap: 80 },
+        { page: `Category:${guildName}/Adept_(81-90)`, cap: 90 },
+        { page: `Category:${guildName}/Veteran_(91-100)`, cap: 100 }
+      ];
+
+      // Always run main FFXIclopedia guild page, and run rank subpages if BG-Wiki yielded < 180 recipes for this guild
+      const pagesToRun = combinedMap.size >= 180 ? [ffxiPages[0]] : ffxiPages;
+      for (const pObj of pagesToRun) {
+        try {
+          if (onProgressUpdate) onProgressUpdate(`Supplementing ${guildName} from FFXIclopedia (${pObj.page})... [Found: ${combinedMap.size}]`);
+          const ffUrl = `https://ffxiclopedia.fandom.com/api.php?action=parse&page=${encodeURIComponent(pObj.page)}&prop=text&format=json&origin=*`;
+          const res2 = await fetch(ffUrl);
+          if (res2.ok) {
+            const d2 = await res2.json();
+            const html2 = d2?.parse?.text?.["*"] || "";
+            if (html2) {
+              const more = parseGuildHtmlTables(html2, guildName, excludeKits, pObj.cap);
+              addListToMap(more);
             }
-          } catch (e2) {}
-        }
+          }
+        } catch (e2) {}
       }
 
-      return parsedList;
+      return Array.from(combinedMap.values());
     }
 
     // Parse a single item's Wikitext for exact Synthesis + Equipment Slot/Jobs/Stats
@@ -1355,6 +1597,7 @@
       pillsBar.innerHTML = Object.keys(GUILDS).map(g => {
         const isAct = g === activeGuild;
         const sk = guildSkills[g] || 0;
+        const gCount = recipes.filter(r => r.guild === g).length;
         return `
           <button
             type="button"
@@ -1368,13 +1611,13 @@
           >
             <span>${GUILDS[g].icon}</span>
             <span>${escapeHtml(g)}</span>
-            <span class="px-1.5 py-0.2 rounded text-[10px] font-mono ${isAct ? "bg-slate-950/25 text-slate-950 font-bold" : "bg-slate-900 text-amber-400"}">${sk}</span>
+            <span class="px-1.5 py-0.2 rounded text-[10px] font-mono ${isAct ? "bg-slate-950/25 text-slate-950 font-bold" : "bg-slate-900 text-amber-400"}">Lv.${sk} (${gCount})</span>
           </button>
         `;
       }).join("");
 
       const totalCartBatches = cart.reduce((acc, c) => acc + c.batches, 0);
-      document.getElementById("tab-label-cart").textContent = `🛒 Material Cart (${totalCartBatches})`;
+      document.getElementById("tab-label-cart").textContent = `🛒 Cart (${totalCartBatches})`;
     }
 
     function renderRouteView() {
@@ -1465,6 +1708,9 @@
         }
 
         if (filterSource === "Custom" && !r.isCustom) return false;
+        if (filterSource === "Endgame" && r.cap < 91) return false;
+        if (filterSource === "Consumables" && r.slot !== "Food / Consumable" && r.slot !== "Ranged / Ammo") return false;
+        if (filterSource === "Materials" && r.slot !== "Material / Component") return false;
         if (filterSource === "Retail" && (r.isCustom || r.isScraped)) return false;
         if (filterSource === "Scraped" && !r.isScraped) return false;
 
@@ -1514,8 +1760,10 @@
 
       if (filtered.length > visibleRecipeLimit) {
         loadMoreWrap.classList.remove("hidden");
+        loadMoreWrap.classList.add("flex");
       } else {
         loadMoreWrap.classList.add("hidden");
+        loadMoreWrap.classList.remove("flex");
       }
 
       const slice = filtered.slice(0, visibleRecipeLimit);
@@ -1611,6 +1859,21 @@
     function renderScraperView() {
       const craftGuilds = ["Woodworking","Smithing","Goldsmithing","Clothcraft","Leathercraft","Bonecraft","Alchemy","Cooking"];
       const btnGrid = document.getElementById("guild-scraper-buttons");
+      const diagBar = document.getElementById("guild-diagnostic-bar");
+
+      if (diagBar) {
+        diagBar.innerHTML = craftGuilds.map(g => {
+          const totalG = recipes.filter(r => r.guild === g).length;
+          const scrapedG = recipes.filter(r => r.guild === g && r.isScraped).length;
+          return `
+            <div class="bg-slate-950/90 border ${totalG >= 100 ? "border-emerald-700/70" : "border-slate-800"} rounded-lg px-2.5 py-1.5 text-center">
+              <div class="text-[11px] font-bold text-slate-200 truncate">${GUILDS[g].icon} ${escapeHtml(g)}</div>
+              <div class="text-xs font-mono font-bold ${totalG >= 100 ? "text-emerald-400" : "text-amber-400"}">${totalG} recipes</div>
+              <div class="text-[10px] text-slate-400">${scrapedG} wiki</div>
+            </div>
+          `;
+        }).join("");
+      }
 
       btnGrid.innerHTML = craftGuilds.map(g => {
         const countInDb = recipes.filter(r => r.guild === g).length;
@@ -1626,7 +1889,7 @@
               <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-900 text-emerald-400 border border-slate-800">${countInDb} in DB</span>
             </div>
             <div class="text-xs font-bold text-slate-100 group-hover:text-emerald-300 mt-1">Scan ${escapeHtml(g)}</div>
-            <div class="text-[10px] text-slate-400">Pull Lv.1–110 Tables</div>
+            <div class="text-[10px] text-slate-400">Pull All Lv.1–110</div>
           </button>
         `;
       }).join("");
@@ -1789,16 +2052,16 @@
     function renderApp() {
       renderTopHeaderAndPills();
 
-      const tabs = ["route", "recipes", "scraper", "cart", "ranks"];
+      const tabs = ["route", "ranks", "recipes", "scraper", "cart"];
       tabs.forEach(t => {
         const viewEl = document.getElementById(`view-${t}`);
         const btnEl = document.getElementById(`tab-btn-${t}`);
         if (t === activeTab) {
           viewEl.classList.remove("hidden");
-          btnEl.className = `${t === "ranks" ? "col-span-2 sm:col-span-1 " : ""}py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition-all bg-amber-600 text-slate-950 shadow`;
+          btnEl.className = `${t === "cart" ? "col-span-2 sm:col-span-1 " : ""}py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition-all bg-amber-600 text-slate-950 shadow`;
         } else {
           viewEl.classList.add("hidden");
-          btnEl.className = `${t === "ranks" ? "col-span-2 sm:col-span-1 " : ""}py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition-all bg-slate-950 ${t === "scraper" ? "text-emerald-400 border-emerald-900/70" : "text-slate-400 border-slate-800"} hover:text-slate-200 border`;
+          btnEl.className = `${t === "cart" ? "col-span-2 sm:col-span-1 " : ""}py-1.5 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition-all bg-slate-950 ${t === "scraper" ? "text-emerald-400 border-emerald-900/70" : "text-slate-400 border-slate-800"} hover:text-slate-200 border`;
         }
       });
 
@@ -1813,10 +2076,14 @@
     // 6. EVENT LISTENERS & BULK SCRAPER HANDLERS
     // =========================================================================
     function mergeScrapedIntoDatabase(newList) {
-      const map = new Map(recipes.map(r => [`${r.guild.toLowerCase()}::${r.name.toLowerCase()}`, r]));
+      const map = new Map(recipes.map(r => {
+        const firstMat = r.mats && r.mats[0] ? r.mats[0].n.toLowerCase() : "";
+        return [`${r.guild.toLowerCase()}::${r.name.toLowerCase()}::${(r.crystal || "").toLowerCase()}::${firstMat}`, r];
+      }));
       let addedCount = 0;
       newList.forEach(item => {
-        const key = `${item.guild.toLowerCase()}::${item.name.toLowerCase()}`;
+        const firstMat = item.mats && item.mats[0] ? item.mats[0].n.toLowerCase() : "";
+        const key = `${item.guild.toLowerCase()}::${item.name.toLowerCase()}::${(item.crystal || "").toLowerCase()}::${firstMat}`;
         if (!map.has(key)) {
           map.set(key, item);
           addedCount++;
@@ -1825,6 +2092,46 @@
       recipes = Array.from(map.values());
       saveRecipes();
       return addedCount;
+    }
+
+    async function runFullAllGuildsScrape(resetOldScraped = false) {
+      if (resetOldScraped) {
+        recipes = recipes.filter(r => !r.isScraped);
+        saveRecipes();
+      }
+
+      const craftGuilds = ["Woodworking","Smithing","Goldsmithing","Clothcraft","Leathercraft","Bonecraft","Alchemy","Cooking"];
+      const progWrap = document.getElementById("scraper-progress-wrap");
+      const progBar = document.getElementById("scraper-progress-bar");
+      const progDetail = document.getElementById("scraper-progress-detail");
+      const badge = document.getElementById("scraper-status-badge");
+
+      progWrap.classList.remove("hidden");
+      discoveredRecipes = [];
+      let totalAdded = 0;
+
+      for (let i = 0; i < craftGuilds.length; i++) {
+        const g = craftGuilds[i];
+        const pct = Math.round((i / craftGuilds.length) * 100);
+        progBar.style.width = `${pct}%`;
+        badge.textContent = `Scanning ${g} (${i + 1}/8)...`;
+
+        const list = await scrapeGuildRecipesFromWiki(g, (msg) => {
+          progDetail.textContent = msg;
+        });
+        discoveredRecipes.push(...list);
+        if (document.getElementById("chk-auto-save-scraped").checked) {
+          totalAdded += mergeScrapedIntoDatabase(list);
+        }
+        renderScraperView();
+        renderTopHeaderAndPills();
+      }
+
+      progBar.style.width = "100%";
+      badge.textContent = `Done! ${recipes.length} Total Recipes in DB`;
+      progDetail.textContent = `Scanned ${discoveredRecipes.length} guild recipes across all 8 guilds (${totalAdded} newly added to your local database).`;
+      renderApp();
+      showToast(`Success! Scanned ${discoveredRecipes.length} recipes. Total Database: ${recipes.length} recipes!`);
     }
 
     function bindEvents() {
@@ -1919,43 +2226,17 @@
       document.getElementById("btn-reset-recipe-filters").addEventListener("click", resetRecipeFilters);
 
       document.getElementById("btn-load-more-recipes").addEventListener("click", () => {
-        visibleRecipeLimit += 60;
+        visibleRecipeLimit += 100;
+        renderRecipesView();
+      });
+      document.getElementById("btn-load-all-recipes").addEventListener("click", () => {
+        visibleRecipeLimit = 99999;
         renderRecipesView();
       });
 
-      // Bulk Scan All 8 Guilds Button
-      document.getElementById("btn-scrape-all-guilds").addEventListener("click", async () => {
-        const craftGuilds = ["Woodworking","Smithing","Goldsmithing","Clothcraft","Leathercraft","Bonecraft","Alchemy","Cooking"];
-        const progWrap = document.getElementById("scraper-progress-wrap");
-        const progBar = document.getElementById("scraper-progress-bar");
-        const progDetail = document.getElementById("scraper-progress-detail");
-        const badge = document.getElementById("scraper-status-badge");
-
-        progWrap.classList.remove("hidden");
-        discoveredRecipes = [];
-        let totalAdded = 0;
-
-        for (let i = 0; i < craftGuilds.length; i++) {
-          const g = craftGuilds[i];
-          const pct = Math.round(((i) / craftGuilds.length) * 100);
-          progBar.style.width = `${pct}%`;
-          badge.textContent = `Scanning ${g} (${i + 1}/8)...`;
-          progDetail.textContent = `Fetching ${g} Amateur (1–10) through Expert (101–110) tables from BG-Wiki...`;
-
-          const list = await scrapeGuildRecipesFromWiki(g);
-          discoveredRecipes.push(...list);
-          if (document.getElementById("chk-auto-save-scraped").checked) {
-            totalAdded += mergeScrapedIntoDatabase(list);
-          }
-          renderScraperView();
-        }
-
-        progBar.style.width = "100%";
-        badge.textContent = `Completed! (${recipes.length} total recipes in DB)`;
-        progDetail.textContent = `Scanned ${discoveredRecipes.length} guild table recipes (${totalAdded} new recipes added to your database).`;
-        renderApp();
-        showToast(`Scanned ${discoveredRecipes.length} recipes across all 8 guilds! Total DB: ${recipes.length} recipes.`);
-      });
+      // Bulk Scan All 8 Guilds Buttons
+      document.getElementById("btn-scrape-all-guilds").addEventListener("click", () => runFullAllGuildsScrape(false));
+      document.getElementById("btn-reset-and-rescrape").addEventListener("click", () => runFullAllGuildsScrape(true));
 
       document.getElementById("btn-import-all-discovered").addEventListener("click", () => {
         const added = mergeScrapedIntoDatabase(discoveredRecipes);
@@ -2030,9 +2311,9 @@
         modalAdd.classList.add("hidden");
         modalAdd.classList.remove("flex");
       };
-      document.getElementById("btn-close-add-recipe").addEventListener("click", closeAdd);
-      document.getElementById("btn-cancel-add-recipe").addEventListener("click", closeAdd);
-      document.getElementById("form-add-recipe").addEventListener("submit", e => {
+      document.getElementById("btn-close-add-recipe")?.addEventListener("click", closeAdd);
+      document.getElementById("btn-cancel-add-recipe")?.addEventListener("click", closeAdd);
+      document.getElementById("form-add-recipe")?.addEventListener("submit", e => {
         e.preventDefault();
         const name = document.getElementById("add-rec-name").value.trim();
         const cap = parseInt(document.getElementById("add-rec-cap").value, 10) || 50;
@@ -2040,32 +2321,48 @@
         const crystal = document.getElementById("add-rec-crystal").value;
         const slot = document.getElementById("add-rec-slot").value;
         const jobsRaw = document.getElementById("add-rec-jobs").value.trim();
-        const jobs = jobsRaw ? jobsRaw.split(",").map(s => s.trim().toUpperCase()).filter(Boolean) : ["All Jobs"];
-        const mats = document.getElementById("add-rec-ingredients").value.split(/[\n,]+/).map(s => {
-          const m = s.trim().match(/^(?:(\d+)\s*[x×]\s*)?(.+)$/i);
-          return m ? { q: parseInt(m[1] || "1", 10) || 1, n: m[2].trim() } : null;
-        }).filter(Boolean);
+        const subcrafts = document.getElementById("add-rec-subcrafts").value.trim() || "None";
+        const matsRaw = document.getElementById("add-rec-mats").value;
         const hq = document.getElementById("add-rec-hq").value.trim() || "HQ Available";
 
-        const created = R("custom_" + Date.now(), name, guild, cap, crystal, "None", slot, jobs, true, mats, hq, "User Custom Recipe");
-        recipes.unshift(created);
+        const mats = matsRaw.split(",").map(s => parseIngredientString(s)).filter(Boolean);
+        const jobs = jobsRaw ? jobsRaw.split(/[,/\s]+/).map(s => s.toUpperCase()).filter(Boolean) : ["All Jobs"];
+
+        const newRec = {
+          id: "custom_" + Date.now(),
+          name,
+          guild,
+          cap,
+          crystal,
+          subcrafts,
+          slot,
+          jobs: jobs.length ? jobs : ["All Jobs"],
+          isCustom: true,
+          isScraped: false,
+          mats: mats.length ? mats : [{ q: 1, n: "Custom Material" }],
+          hq,
+          notes: "User Custom Recipe"
+        };
+        recipes.unshift(newRec);
         saveRecipes();
         closeAdd();
         e.target.reset();
         renderApp();
-        showToast(`Added "${name}"!`);
+        showToast(`Added "${name}" to Recipe Database!`);
       });
 
-      // Backup / Restore Modal
+      // Backup / Restore Modal + File Download / Upload
       const modalBackup = document.getElementById("modal-backup");
+      const buildBackupPayload = () => ({
+        version: DB_VERSION,
+        guildSkills,
+        completedRanks,
+        cart,
+        scrapedAndCustomRecipes: recipes.filter(r => r.isScraped || (r.id && r.id.startsWith("custom_")))
+      });
+
       document.getElementById("btn-open-backup").addEventListener("click", () => {
-        document.getElementById("backup-textarea").value = JSON.stringify({
-          version: DB_VERSION,
-          guildSkills,
-          completedRanks,
-          cart,
-          scrapedAndCustomRecipes: recipes.filter(r => r.isScraped || (r.id && r.id.startsWith("custom_")))
-        }, null, 2);
+        document.getElementById("backup-textarea").value = JSON.stringify(buildBackupPayload(), null, 2);
         modalBackup.classList.remove("hidden");
         modalBackup.classList.add("flex");
       });
@@ -2079,6 +2376,28 @@
         document.execCommand("copy");
         showToast("Copied Crafting Backup JSON to clipboard!");
       });
+      document.getElementById("btn-download-json-file").addEventListener("click", () => {
+        const blob = new Blob([JSON.stringify(buildBackupPayload(), null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `catseyexi-crafting-db-${recipes.length}-recipes.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast(`Downloaded backup file (${recipes.length} recipes)!`);
+      });
+      document.getElementById("input-upload-json-file").addEventListener("change", e => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => {
+          document.getElementById("backup-textarea").value = String(ev.target?.result || "");
+          document.getElementById("btn-restore-json").click();
+        };
+        reader.readAsText(file);
+      });
       document.getElementById("btn-restore-json").addEventListener("click", () => {
         try {
           const data = JSON.parse(document.getElementById("backup-textarea").value);
@@ -2088,7 +2407,7 @@
           }
           if (data.completedRanks) {
             completedRanks = data.completedRanks;
-            localStorage.setItem("cexi_craft_ranks_v15", JSON.stringify(completedRanks));
+            localStorage.setItem("cexi_craft_ranks_v16", JSON.stringify(completedRanks));
           }
           if (Array.isArray(data.scrapedAndCustomRecipes)) {
             mergeScrapedIntoDatabase(data.scrapedAndCustomRecipes);
@@ -2155,9 +2474,14 @@
         } else if (action === "scrape-single-guild") {
           const g = target.getAttribute("data-guild");
           const badge = document.getElementById("scraper-status-badge");
+          const progWrap = document.getElementById("scraper-progress-wrap");
+          const progDetail = document.getElementById("scraper-progress-detail");
+          progWrap.classList.remove("hidden");
           badge.textContent = `Scanning ${g} tables...`;
-          showToast(`Scanning ${g} recipe tables (Lv.1–110) from BG-Wiki...`);
-          const list = await scrapeGuildRecipesFromWiki(g);
+          showToast(`Scanning ${g} recipe tables (Lv.1–110) from BG-Wiki & FFXIclopedia...`);
+          const list = await scrapeGuildRecipesFromWiki(g, (msg) => {
+            progDetail.textContent = msg;
+          });
           discoveredRecipes = list;
           let added = 0;
           if (document.getElementById("chk-auto-save-scraped").checked) {
